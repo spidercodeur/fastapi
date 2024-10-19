@@ -1,6 +1,8 @@
 "use server";
 import { sql } from "@vercel/postgres";
 
+import TypeEffect from "./typeEffect";
+
 const getMessage = async () => {
 	console.log("get message");
 	try {
@@ -16,7 +18,11 @@ const getMessage = async () => {
 
 const Message = async () => {
 	const message = await getMessage();
-	return <div>{message ? message : "Aucun message trouvé"}</div>;
+	return (
+		<div className="w-96">
+			<TypeEffect message={message ? message : "Aucun message trouvé"} />
+		</div>
+	);
 };
 
 export default Message;
