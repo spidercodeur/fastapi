@@ -1,28 +1,56 @@
-"use server";
-import { sql } from "@vercel/postgres";
+"use client";
+import { useState, useEffect } from "react";
 
-import TypeEffect from "./typeEffect";
+const DisplayMessage = () => {
+	const [currentMessage, setCurrentMessage] = useState("");
+	const [currentColor, setCurrentColor] = useState("#111111");
+	const [hasError, setHasError] = useState(false);
 
-const getMessage = async () => {
-	console.log("get message");
-	try {
-		const result =
-			await sql`SELECT message FROM messages ORDER BY id DESC LIMIT 1`;
+	// Fonction pour récupérer le message actuel
+	const fetchCurrentMessage = async () => {
+		try {
+			const response = await fetch("/api/py/readMessage", {
+				cache: "no-cache", // Ne pas utiliser le cache },
+			});
 
-		return result.rows[0]?.message || "Pas de message disponible";
-	} catch (error) {
-		console.error(error);
-	} finally {
+			const { message, color } = await response.json();
+			setCurrentMessage(message);
+			setCurrentColor(color);
+		} catch (error) {
+			setHasError(true);
+			console.error("Erreur lors du fetch:", error);
+		}
+	};
+
+	// useEffect pour récupérer les données et simuler la revalidation
+	useEffect(() => {
+		// Appeler fetch pour initialiser les données
+		fetchCurrentMessage();
+
+		// Polling : répéter le fetch toutes les X secondes pour vérifier si le message a changé
+		const interval = setInterval(() => {
+			fetchCurrentMessage();
+		}, 5000); // Mettre à jour toutes les 5 secondes, ou selon ton besoin
+
+		// Cleanup de l'intervalle à la fin
+		return () => clearInterval(interval);
+	}, []);
+
+	if (hasError) {
+		return <p>Erreur lors du chargement du message.</p>;
 	}
-};
 
-const Message = async () => {
-	const message = await getMessage();
 	return (
-		<div className="w-96">
-			<TypeEffect message={message ? message : "Aucun message trouvé"} />
+		<div className="w-96 h56 text-center">
+			<p
+				style={{
+					color: currentColor,
+				}}
+			>
+				{currentMessage}
+			</p>
 		</div>
 	);
 };
 
-export default Message;
+export default DisplayMessage;
