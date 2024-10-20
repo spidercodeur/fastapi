@@ -2,11 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const fetchCache = "force-no-store";
-import dynamic from "next/dynamic";
 
-const Message = dynamic(() => import("@/app/components/getMessage"), {
-	loading: () => <p></p>,
-});
+import DisplayMessage from "./components/getMessage";
 
 export default async function Home() {
 	return (
@@ -55,7 +52,7 @@ export default async function Home() {
 					priority
 				/>
 			</div>
-			<Message />
+			<DisplayMessage />
 			<div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
 				<a
 					href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
