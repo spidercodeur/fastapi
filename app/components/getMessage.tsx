@@ -42,14 +42,13 @@ const DisplayMessage = () => {
 	}
 
 	return (
-		<div className="w-96 h-56 text-center">
-			<p
-				style={{
-					color: currentColor,
-				}}
-			>
-				<TypeEffect message={currentMessage} />
-			</p>
+		<div
+			style={{
+				color: currentColor,
+			}}
+			className="w-96 h-56 text-center"
+		>
+			<TypeEffect message={currentMessage} />
 		</div>
 	);
 };
