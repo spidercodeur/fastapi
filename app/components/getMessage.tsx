@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import TypeEffect from "./typeEffect";
 
 const DisplayMessage = () => {
 	const [currentMessage, setCurrentMessage] = useState("");
@@ -47,7 +48,7 @@ const DisplayMessage = () => {
 					color: currentColor,
 				}}
 			>
-				{currentMessage}
+				<TypeEffect message={currentMessage} />
 			</p>
 		</div>
 	);
