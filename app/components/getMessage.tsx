@@ -48,7 +48,7 @@ const DisplayMessage = () => {
 			}}
 			className="w-96 h-56 text-center"
 		>
-			<TypeEffect message={currentMessage} />
+			<TypeEffect message={currentMessage as string} />
 		</div>
 	);
 };

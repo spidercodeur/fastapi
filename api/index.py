@@ -1,6 +1,6 @@
 import asyncpg
 import os
-from fastapi import FastAPI, Request,Header,HTTPException
+from fastapi import FastAPI, Request,Header,HTTPException,status
 from pydantic import BaseModel
 from dotenv import load_dotenv
 

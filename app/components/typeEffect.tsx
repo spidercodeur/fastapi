@@ -2,6 +2,10 @@
 import Typewriter from "typewriter-effect";
 
 const TypeEffect = ({ message }: { message: string }) => {
+	if (message === "") {
+		return <></>;
+	}
+
 	return (
 		<Typewriter
 			onInit={(typewriter) => {
