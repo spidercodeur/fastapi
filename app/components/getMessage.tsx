@@ -42,7 +42,7 @@ const DisplayMessage = () => {
 	}
 
 	return (
-		<div className="w-96 h56 text-center">
+		<div className="w-96 h-56 text-center">
 			<p
 				style={{
 					color: currentColor,
